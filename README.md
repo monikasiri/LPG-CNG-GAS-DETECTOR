@@ -1,4 +1,4 @@
-# 🚨 LPG/CNG Gas and Fire Detector 
+# 🚨 LPG/CNG Gas and Fire Detector with Telegram Alerts
 
 ### **Project Summary**
 ---
@@ -40,4 +40,16 @@ This embedded IoT-based project focuses on gas and fire safety in homes or indus
 ### **Algorithm Used**
 ---
 - Continuously read gas sensor (analog) and fire sensor (digital)  
-- If gas level > t
+- If gas level > threshold → trigger buzzer, open servo door  
+- If fire detected → activate buzzer and sprinkler  
+- Format the alert string and send via Telegram bot using WiFi  
+- Command options via Telegram: `/start`, `/led_on`, `/led_off`, `/state`  
+
+### **How It Works**
+---
+1. System boots and connects to WiFi  
+2. LCD displays real-time gas and fire readings  
+3. If gas value > 300 → buzzer ON, servo door opens  
+4. If fire sensor reads high → buzzer ON, sprinkler activated  
+5. ESP receives alerts via serial and forwards them to Telegram  
+6. Telegram bot responds to user commands and notifies emergencies  
