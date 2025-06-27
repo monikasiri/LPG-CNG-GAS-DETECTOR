@@ -1,16 +1,14 @@
-# 🚨 LPG/CNG Gas and Fire Detector with Telegram Alerts
-
 ### **Project Summary**
 ---
-This project is a safety system designed to detect LPG/CNG gas leakage and fire. It uses a gas sensor, fire sensor, buzzer, LCD for local alerting, and a servo to open a door. It sends real-time alerts via Telegram using an ESP-based board connected over WiFi.
+This project detects LPG/CNG gas leakage and fire using sensors. It gives alerts via a buzzer, LCD, and servo motor, and also sends emergency messages to a Telegram chat using WiFi.
 
 ### **Abstract**
 ---
-The system monitors gas concentration and fire presence using analog/digital sensors. In case of gas leakage or fire, it triggers a buzzer and activates safety actions like opening a door or enabling a sprinkler. It also sends real-time notifications to a predefined Telegram chat using the UniversalTelegramBot library.
+The system uses a gas sensor and a fire sensor to detect hazardous conditions. If gas or fire is detected, it activates a buzzer, displays the status on an LCD, opens a safety door with a servo motor, and sends real-time alerts through a Telegram bot using an ESP8266 module.
 
 ### **Introduction**
 ---
-This embedded IoT-based project focuses on gas and fire safety in homes or industries. It reads values from a gas and fire sensor, displays them on an LCD, activates response systems (buzzer, servo motor, and sprinkler), and sends status updates to a user via Telegram bot. The ESP8266/ESP32 manages the cloud communication.
+This safety system is designed for home or industrial use. It helps prevent accidents by continuously monitoring for gas leaks and fire. When a hazard is detected, the system responds locally (buzzer, LCD, servo) and remotely (Telegram alert).
 
 ### **Hardware Used**
 ---
@@ -18,38 +16,35 @@ This embedded IoT-based project focuses on gas and fire safety in homes or indus
 - IR Fire Sensor  
 - 16x2 LCD Display  
 - Servo Motor  
-- Sprinkler (Relay Based)  
-- Buzzer  
-- ESP8266 / ESP32  
-- WiFi Router  
-- Power Supply  
+- ESP8266 (NodeMCU)  
+- Arduino UNO  
+- Power Supply and Connecting Wires  
 
 ### **Software Used**
 ---
-- Arduino IDE (for coding and uploading)  
-- Telegram App (for receiving alerts)  
+- Arduino IDE (for programming the Arduino and ESP8266)  
+- Telegram App (to receive real-time alerts)
 
 ### **Libraries Used**
 ---
-- LiquidCrystal  
-- Servo  
-- WiFi / WiFiClientSecure  
-- UniversalTelegramBot  
-- ArduinoJson  
+- `LiquidCrystal` – for LCD display  
+- `Servo` – to control the servo motor  
+- `WiFi / WiFiClientSecure` – to connect ESP8266 to the internet  
+- `UniversalTelegramBot` – to send alerts to Telegram  
+- `ArduinoJson` – to format Telegram messages
 
 ### **Algorithm Used**
 ---
-- Continuously read gas sensor (analog) and fire sensor (digital)  
-- If gas level > threshold → trigger buzzer, open servo door  
-- If fire detected → activate buzzer and sprinkler  
-- Format the alert string and send via Telegram bot using WiFi  
-- Command options via Telegram: `/start`, `/led_on`, `/led_off`, `/state`  
+1. Read analog gas value and digital fire value continuously  
+2. If gas > 300 → sound buzzer, open servo motor  
+3. If fire is detected → sound buzzer, activate sprinkler (relay)  
+4. Send the alert message to ESP8266 through Serial  
+5. ESP8266 forwards the message to the Telegram chat  
+6. Telegram bot responds to commands like `/start`, `/led_on`, `/led_off`, `/state`
 
 ### **How It Works**
 ---
-1. System boots and connects to WiFi  
-2. LCD displays real-time gas and fire readings  
-3. If gas value > 300 → buzzer ON, servo door opens  
-4. If fire sensor reads high → buzzer ON, sprinkler activated  
-5. ESP receives alerts via serial and forwards them to Telegram  
-6. Telegram bot responds to user commands and notifies emergencies  
+- The Arduino UNO reads sensor values and controls outputs (buzzer, LCD, servo)  
+- If danger is detected, Arduino sends a message to ESP8266 via Serial  
+- The ESP8266 connects to WiFi and sends the message to Telegram  
+- The user receives real-time alerts and can also control the LED remotely via Telegram commands  
