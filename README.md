@@ -1,50 +1,56 @@
-### **Project Summary**
----
-This project detects LPG/CNG gas leakage and fire using sensors. It gives alerts via a buzzer, LCD, and servo motor, and also sends emergency messages to a Telegram chat using WiFi.
+# 🔥 LPG/CNG Gas and Fire Detection System with Telegram Alerts
 
-### **Abstract**
+## **Project Summary**
 ---
-The system uses a gas sensor and a fire sensor to detect hazardous conditions. If gas or fire is detected, it activates a buzzer, displays the status on an LCD, opens a safety door with a servo motor, and sends real-time alerts through a Telegram bot using an ESP8266 module.
+This project is an IoT-based safety system that detects LPG/CNG gas and fire using appropriate sensors. It provides real-time alerts through a buzzer, LCD display, and a sprinkler system. Alerts are also sent remotely via Telegram using an ESP8266 module.
 
-### **Introduction**
+## **Abstract**
 ---
-This safety system is designed for home or industrial use. It helps prevent accidents by continuously monitoring for gas leaks and fire. When a hazard is detected, the system responds locally (buzzer, LCD, servo) and remotely (Telegram alert).
+The system uses a gas sensor to monitor LPG/CNG levels and a fire sensor to detect flames. If either crosses the safety threshold, the system activates a buzzer and sprinkler, displays the values on an LCD, and sends an emergency message through a Telegram bot using Wi-Fi.
 
-### **Hardware Used**
+## **Introduction**
+---
+This embedded system enhances fire and gas safety in indoor environments. It combines sensor-based monitoring with IoT-based remote alerting to provide timely warnings and automatic response actions. Arduino handles the local logic, while ESP8266 takes care of Telegram communication.
+
+## **Hardware Used**
 ---
 - MQ Gas Sensor  
 - IR Fire Sensor  
 - 16x2 LCD Display  
-- Servo Motor  
-- ESP8266 (NodeMCU)  
+- Buzzer  
+- Relay-connected Sprinkler  
+- ESP8266 Wi-Fi Module  
 - Arduino UNO  
-- Power Supply and Connecting Wires  
+- Power Supply  
 
-### **Software Used**
+## **Software Used**
 ---
-- Arduino IDE (for programming the Arduino and ESP8266)  
-- Telegram App (to receive real-time alerts)
+- Arduino IDE  
+- Telegram App  
 
-### **Libraries Used**
+## **Libraries Used**
 ---
-- `LiquidCrystal` – for LCD display  
-- `Servo` – to control the servo motor  
-- `WiFi / WiFiClientSecure` – to connect ESP8266 to the internet  
-- `UniversalTelegramBot` – to send alerts to Telegram  
-- `ArduinoJson` – to format Telegram messages
+- LiquidCrystal  
+- WiFi / WiFiClientSecure  
+- UniversalTelegramBot  
+- ArduinoJson  
 
-### **Algorithm Used**
+## **Algorithm Used**
 ---
-1. Read analog gas value and digital fire value continuously  
-2. If gas > 300 → sound buzzer, open servo motor  
-3. If fire is detected → sound buzzer, activate sprinkler (relay)  
-4. Send the alert message to ESP8266 through Serial  
-5. ESP8266 forwards the message to the Telegram chat  
-6. Telegram bot responds to commands like `/start`, `/led_on`, `/led_off`, `/state`
+1. Arduino reads gas and fire sensor values.
+2. LCD displays the sensor data in real time.
+3. If gas value > 300:
+   - Buzzer is activated.
+   - Message is sent to ESP via Serial.
+4. If fire is detected:
+   - Buzzer is activated.
+   - Sprinkler is turned ON through relay.
+   - Message is sent to ESP via Serial.
+5. ESP8266 sends the received message to Telegram using a bot.
 
-### **How It Works**
+## **How It Works**
 ---
-- The Arduino UNO reads sensor values and controls outputs (buzzer, LCD, servo)  
-- If danger is detected, Arduino sends a message to ESP8266 via Serial  
-- The ESP8266 connects to WiFi and sends the message to Telegram  
-- The user receives real-time alerts and can also control the LED remotely via Telegram commands  
+- On startup, Arduino initializes sensors and LCD.
+- System reads gas and fire inputs continuously.
+- On danger detection, it activates buzzer and sprinkler.
+- Simultaneously, ESP8266 sends a message to a preconfigured Telegram chat to alert the user.
